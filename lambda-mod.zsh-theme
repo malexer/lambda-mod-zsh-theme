@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
 LAMBDA="%(?,%{$fg_bold[green]%}λ,%{$fg_bold[red]%}λ)"
+PROMPT_SYMBOL="$"
+
 if [[ "$USER" == "root" ]]; then USERCOLOR="red"; else USERCOLOR="yellow"; fi
 
 # Git sometimes goes into a detached head state. git_prompt_info doesn't
@@ -10,13 +12,13 @@ function check_git_prompt_info() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         if [[ -z $(git_prompt_info) ]]; then
             echo "%{$fg[blue]%}detached-head%{$reset_color%}) $(git_prompt_status)
-%{$fg[yellow]%}→ "
+%{$fg[yellow]%}$PROMPT_SYMBOL "
         else
             echo "$(git_prompt_info) $(git_prompt_status)
-%{$fg_bold[cyan]%}→ "
+%{$fg_bold[cyan]%}$PROMPT_SYMBOL "
         fi
     else
-        echo "%{$fg_bold[cyan]%}→ "
+        echo "%{$fg_bold[cyan]%}$PROMPT_SYMBOL "
     fi
 }
 
